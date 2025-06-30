@@ -50,6 +50,7 @@ public class CustomSecurityConfig {
         httpSecurity.authorizeHttpRequests(auth -> auth
             .requestMatchers("/api/v1/token/**").permitAll()  // 로그인, 토큰 갱신
             .requestMatchers("/api/v1/member/register").permitAll()  // 회원가입만 허용
+            .requestMatchers("/upload/**").permitAll() // 이미지 업로드 파일 접근 허용
             .anyRequest().authenticated()  // 나머지는 인증 필요
         );
 

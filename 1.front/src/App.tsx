@@ -1,8 +1,8 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Login from "./jsx/login";
-import List from "./jsx/list";
-import Main from "./jsx/main";
-import Signup from "./jsx/signup";
+import Login from "./tsx/login";
+import List from "./tsx/list";
+import Main from "./tsx/main";
+import Signup from "./tsx/signup";
 import "./css/index.css";
 import React from "react";
 

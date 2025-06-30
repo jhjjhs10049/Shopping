@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { registerUser } from "../js/api";
+import { registerUser } from "../ts/api";
 
 const Signup: React.FC = () => {
   const navigate = useNavigate();

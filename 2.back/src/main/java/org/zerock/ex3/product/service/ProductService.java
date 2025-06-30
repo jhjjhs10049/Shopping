@@ -104,7 +104,9 @@ public class ProductService {
             Pageable pageable =
                     pageRequestDTO.getpageable(Sort.by("pno").descending());
 
-            return productRepository.list(pageable);
+            // 기존: return productRepository.list(pageable);
+            // 변경: reviewCount, productImage 포함 쿼리 사용
+            return productRepository.listWithReviewCount(pageable);
         }catch(Exception e){
             log.error(e.getMessage());
             throw ProductExceptions.PRODUCT_NOT_FETCHED.get();

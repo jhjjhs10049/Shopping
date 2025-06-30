@@ -57,3 +57,74 @@ export const getSamples = async (pageNum: number): Promise<any> => {
   const res = await jwtAxios.get(path);
   return res.data;
 };
+
+export interface ProductListDTO {
+  pno: number;
+  pname: string;
+  price: number;
+  writer: string;
+  productImage: string; 
+  reviewCount: number;
+  join_date: string;
+}
+
+export interface ProductListPage {
+  content: ProductListDTO[];
+  totalPages: number;
+  totalElements: number;
+  number: number; // 현재 페이지 (0부터 시작)
+  size: number;
+}
+
+export const getProductList = async (
+  page: number = 1
+): Promise<ProductListPage> => {
+  const path = url + `products/list?page=${page}`;
+  const res = await jwtAxios.get(path);
+  return res.data;
+};
+
+export interface ProductDetailDTO {
+  pno: number;
+  pname: string;
+  price: number;
+  content: string;
+  writer: string;
+  imageList: string[];
+  reviewCount: number;
+}
+
+// 상품 등록
+export const registerProduct = async (
+  product: Omit<ProductDetailDTO, "pno" | "reviewCount">
+) => {
+  const path = url + "products";
+  const res = await jwtAxios.post(path, product);
+  return res.data;
+};
+
+// 상품 상세
+export const getProductDetail = async (
+  pno: number
+): Promise<ProductDetailDTO> => {
+  const path = url + `products/${pno}`;
+  const res = await jwtAxios.get(path);
+  return res.data;
+};
+
+// 상품 수정
+export const updateProduct = async (
+  pno: number,
+  product: Omit<ProductDetailDTO, "pno" | "reviewCount">
+) => {
+  const path = url + `products/${pno}`;
+  const res = await jwtAxios.put(path, product);
+  return res.data;
+};
+
+// 상품 삭제
+export const deleteProduct = async (pno: number) => {
+  const path = url + `products/${pno}`;
+  const res = await jwtAxios.delete(path);
+  return res.data;
+};
