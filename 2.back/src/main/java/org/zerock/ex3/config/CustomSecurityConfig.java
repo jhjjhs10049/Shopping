@@ -51,6 +51,8 @@ public class CustomSecurityConfig {
             .requestMatchers("/api/v1/token/**").permitAll()  // 로그인, 토큰 갱신
             .requestMatchers("/api/v1/member/register").permitAll()  // 회원가입만 허용
             .requestMatchers("/upload/**").permitAll() // 이미지 업로드 파일 접근 허용
+            .requestMatchers("/list/**").permitAll() // 상품 리스트 접근 허용 (JWTCheckFilter와 일치)
+            .requestMatchers("/api/v1/files/**").permitAll() // 파일 업로드 API 허용
             .anyRequest().authenticated()  // 나머지는 인증 필요
         );
 

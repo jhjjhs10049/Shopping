@@ -39,12 +39,27 @@ public class JWTCheckFilter extends OncePerRequestFilter {
         if(servletPath.startsWith("/api/v1/token/")) {
             log.info("Token path - skipping filter");
             return true;
-        }        // 회원가입 경로만 제외
+        } 
+        // 회원가입 경로만 제외
         if(servletPath.equals("/api/v1/member/register")) {
             log.info("Member register path - skipping filter");
             return true;
         }
-
+        // 리스트 경로도 제외
+        if(servletPath.startsWith("/list/")) {
+            log.info("List path - skipping filter");
+            return true;
+        }
+        // 업로드 파일(이미지) 경로도 제외
+        if(servletPath.startsWith("/upload/")) {
+            log.info("Upload path - skipping filter");
+            return true;
+        }
+        // 파일 업로드 API 경로도 제외
+        if(servletPath.startsWith("/api/v1/files/")) {
+            log.info("Files API path - skipping filter");
+            return true;
+        }
         // API가 아닌 경로
         if(!path.startsWith("/api/")) {
             log.info("Non-API path - skipping filter");

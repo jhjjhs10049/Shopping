@@ -63,9 +63,9 @@ export interface ProductListDTO {
   pname: string;
   price: number;
   writer: string;
-  productImage: string; 
+  productImage: string;
   reviewCount: number;
-  join_date: string;
+  imageList?: string[]; // 여러 이미지 지원 (옵셔널)
 }
 
 export interface ProductListPage {

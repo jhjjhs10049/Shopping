@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { makeToken, saveToken } from "../ts/api";
+import { makeToken, saveToken } from "../../ts/api";
 
 const Login: React.FC = () => {
   const navigate = useNavigate();

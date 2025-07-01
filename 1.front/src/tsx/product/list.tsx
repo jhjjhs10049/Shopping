@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { getProductList, ProductListPage } from "../ts/api";
+import { getProductList, ProductListPage } from "../../ts/api";
 
 const ListPage: React.FC = () => {
   const [data, setData] = useState<ProductListPage | null>(null);
@@ -36,6 +36,14 @@ const ListPage: React.FC = () => {
   return (
     <div>
       <h1>상품 목록</h1>
+      <button
+        style={{ marginBottom: 16 }}
+        onClick={() => {
+          window.location.href = "/product/register";
+        }}
+      >
+        상품 등록
+      </button>
       {loading && <p>로딩 중...</p>}
       {error ? <p>데이터를 불러오는 중 오류가 발생했습니다.</p> : null}
       {data && (
@@ -61,21 +69,8 @@ const ListPage: React.FC = () => {
                       color: "blue",
                       textDecoration: "underline",
                     }}
-                    onClick={async () => {
-                      try {
-                        const detail = await import("../ts/api").then((m) =>
-                          m.getProductDetail(item.pno)
-                        );
-                        alert(
-                          `상품명: ${
-                            detail.pname
-                          }\n가격: ${detail.price.toLocaleString()}원\n설명: ${
-                            detail.content
-                          }\n작성자: ${detail.writer}`
-                        );
-                      } catch (e) {
-                        alert("상세 조회 실패");
-                      }
+                    onClick={() => {
+                      window.location.href = `/product/detail/${item.pno}`;
                     }}
                   >
                     {item.pname}
@@ -83,13 +78,34 @@ const ListPage: React.FC = () => {
                   <td>{item.price.toLocaleString()}원</td>
                   <td>{item.writer}</td>
                   <td>
-                    {item.productImage &&
-                    item.productImage !== "null" &&
-                    item.productImage !== "" ? (
+                    {" "}
+                    {Array.isArray(item.imageList) &&
+                    item.imageList.length > 0 ? (
+                      item.imageList.map((img: string, idx: number) =>
+                        img && img !== "null" && img !== "" ? (
+                          <img
+                            key={idx}
+                            src={`http://localhost:8080/upload/${encodeURIComponent(
+                              img
+                            )}`}
+                            alt=""
+                            width={60}
+                            style={{ marginRight: 4 }}
+                            onError={(e) =>
+                              (e.currentTarget.style.display = "none")
+                            }
+                          />
+                        ) : null
+                      )
+                    ) : item.productImage &&
+                      item.productImage !== "null" &&
+                      item.productImage !== "" ? (
                       <img
-                        src={"/upload/" + encodeURIComponent(item.productImage)}
+                        src={`http://localhost:8080/upload/${encodeURIComponent(
+                          item.productImage
+                        )}`}
                         alt=""
-                        width={60}
+                        width={300}
                         onError={(e) =>
                           (e.currentTarget.style.display = "none")
                         }

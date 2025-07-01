@@ -10,5 +10,7 @@ public class WebConfig implements WebMvcConfigurer {
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/upload/**")
                 .addResourceLocations("file:C:/Users/Administrator/Desktop/GIT/Project2/2.back/upload/");
+                //http://localhost:포트번호/upload/test.jpg
+                //와 같은 URL로 접근가능
     }
 }

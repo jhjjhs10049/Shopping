@@ -94,10 +94,10 @@ public class ProductController {
 
         if(productDTO.getImageList() == null || productDTO.getImageList().isEmpty()){
             throw ProductExceptions.PRODUCT_NO_IMAGE.get();
-        }
-
-        if(!productDTO.getWriter().equals(authentication.getName())){
-            throw ProductExceptions.PRODUCT_WRITER_ERROR.get();
+        }        if(!productDTO.getWriter().equals(authentication.getName())) {
+            Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
+            authorities.stream().filter(authority -> authority.getAuthority().equals("ROLE_ADMIN"))
+                    .findAny().orElseThrow(ProductExceptions.PRODUCT_WRITER_ERROR::get);
         }
 
         return ResponseEntity.ok(productService.modify(productDTO));

@@ -1,0 +1,4 @@
+JWTCheckFilter (security-filter)
+CustomSecurityConfig (config)
+이렇게 2군데에서 필터링을 걸고있기때문에 토큰이 있어야만 동작된다.
+필터링을 없애기위해선 예외처리를 2군데 모두 해주어야함
